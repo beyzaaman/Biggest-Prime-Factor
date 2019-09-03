@@ -30,46 +30,52 @@ void biggest_prime_factor::find_factors()
 }
 
 void biggest_prime_factor::find_prime_factors()
-{	
-	if (!factors.empty())
+{
+	while (!factors.empty())
 	{
 		int factor = factors.front();
+		int base = 2;
 
-		for (int base = 1; base <= factor; base++)
+		while (base <= factor)
 		{
-			if (factor%base == 0)
+			if (factor%base != 0)
 			{
-				if (factor == base && (factor != 1 || base == 1))
+				++base;
+				//devam et.
+			}
+
+			else // base%factor==0
+			{
+				if (base != factor)
+				{
+					base = factor + 1;
+					factors.pop();
+	
+				}
+
+				else //base=factor
 				{
 					std::cout << factor << " ";
-
-					prime_factors.push(factor);
 					factors.pop();
-
+					
 					find_prime_factors();
-
 				}
 
-				else
-				{
-					if (base != 1)
-					{
-						if (factors.size()!=1)
-						{
-							factors.pop();
-							find_prime_factors();
-						}
-						else
-						{
-							base = 1;
-							return;
-						}
-
-					}
-
-				}
+				
 			}
 		}
+
+		if (factors.size() != 0)
+		{
+			factors.pop();
+		}
+
+		else
+		{
+			find_prime_factors();
+		}
+		
 	}
+	
 }
 
