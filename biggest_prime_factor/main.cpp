@@ -6,5 +6,4 @@ int main()
 {
 	biggest_prime_factor insert;
 	insert.get_number();
-	
 }
